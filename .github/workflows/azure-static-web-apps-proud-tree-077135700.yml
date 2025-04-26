@@ -27,8 +27,9 @@ jobs:
         id: idtoken
         with:
            script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
+               return await github.rest.actions.createAuthorizationToken({
+                   repository: context.repo.owner + '/' + context.repo.repo,
+               })
            result-encoding: string
       - name: Build And Deploy
         id: builddeploy
